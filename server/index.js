@@ -6,6 +6,19 @@ const bodyParser= require('body-parser');
 
 const app = express();
 
+const dotenv = require("dotenv");
+dotenv.config();
+
+const MongoClient = require('mongodb').MongoClient
+
+const connectionString = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.ypjos.mongodb.net/?retryWrites=true&w=majority`;
+
+MongoClient.connect(connectionString, {
+    useUnifiedTopology: true
+  }, (err, client) => {
+    if (err) return console.error(err)
+    console.log('Connected to Database')
+})
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
